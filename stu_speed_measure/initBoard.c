@@ -8,7 +8,7 @@
 *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Serge Hould      14 Jan. 2021		v1.0.0      Setup for PIC32    
 * Serge Hould      27 Apr. 2021     v1.1        Set PBCLK to 80MHz to facilitate simulation.  Both sysclk and pbclk are the same.
-*                                               
+* Ezra-Fikru Asfaw 24 Aug. 2021		v1.0.0      Implement initT2 and initCN9                                             
 * 
 *
  *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -57,4 +57,35 @@ void initIO(void)
        
 }
 
+
+void initT2( void) 
+{ 
+    // Initialize and enable Timer2 
+    T2CONbits.TON = 0; // Disable Timer 
+    T2CONbits.TCS = 0; // Select internal inst. cycle clock 
+    T2CONbits.TGATE = 0; // Disable Gated Timer mode 
+    T2CONbits.TCKPS = 0b010;  
+    TMR2 = 0x00; // Clear timer register 
+    PR2=0xFFFF; // Load the period value.  
+    INTCONbits.MVEC = 1;
+    __builtin_disable_interrupts();   // disable interrupt 
+    IPC2bits.T2IP = 0x01; // Set Timer 2 Inter Priority  
+    IFS0bits.T2IF = 0; // Clear Timer 2 Interrupt Flag 
+    IEC0bits.T2IE = 1; // Enable Timer 2 interrupt 
+    T2CONbits.TON = 1; // Start Timer  
+    __builtin_enable_interrupts();// enable Inter.
+} // init 
+
+void initCN9 (void)
+{ 
+    TRISGbits.TRISG7 =1; // input CN9/RG7 pin 11 
+    CNENbits.CNEN9 = 1; //  CN9 
+    __builtin_disable_interrupts();   // disable interrupt 
+    CNCONbits.ON = 1; // turn on CN 
+    IPC6bits.CNIP=2;     
+    IFS1bits.CNIF=0;        
+    INTCONbits.MVEC=1; 
+    IEC1bits.CNIE=1; 
+    __builtin_enable_interrupts();// enable Inter. 
+} 
 
