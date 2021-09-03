@@ -17,11 +17,12 @@
 
 /*Global variables*/
 signed int of = 0;
-extern int timePeriod= 0;
+extern int timePeriod= 1;
                     
 void __ISR( _TIMER_2_VECTOR, IPL1SOFT) T2InterruptHandler( void){ 
      IFS0bits.T2IF = 0; 
      of++; // Timer overflows
+     
 } 
 
 //void __ISR( _CHANGE_NOTICE_VECTOR, IPL2SOFT) CNInterrupt( void){
