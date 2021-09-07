@@ -53,7 +53,7 @@ void TickCoreReset(void){
         _CP0_SET_COUNT(0); // Set Core Timer count to 0
 }
 
-/* Returns the difference between the current core timer ticks and the latest stamp value */
+/* Returns the difference between the current core timer ticks and the latest value */
 /* Tested ok with  a 52 second delay whether stamp is signed  or not signed*/
 int64_t TickDiff(int32_t stamp){
     int32_t diff;

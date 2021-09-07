@@ -38,6 +38,16 @@
 /* Sets up the IOs */
 void initIO(void)
 {
+    DDPCONbits.JTAGEN = 0;
+    
+    LATAbits.LATA7 = 0;       //LED10
+    LATAbits.LATA5 = 0;       //Led8
+    LATAbits.LATA4 = 0;       //Led7
+    LATAbits.LATA3 = 0;       //Led6
+    LATAbits.LATA2 = 0;       //Led5
+    LATAbits.LATA1 = 0;       //Led4
+    LATAbits.LATA0 = 0;       //Led3
+    
     /* LEDs */
     TRISAbits.TRISA7 = 0;       //LED10
     TRISAbits.TRISA5 = 0;       //Led8
