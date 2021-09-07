@@ -67,8 +67,8 @@ int main( void){
     
     while(1){
        
-        if (TickDiff(stamp) > Ticks_per_second/2 ){
-            frequency = (20000000 / (64/4))/timePeriod;
+        if (TickDiff(stamp) > Ticks_per_second/2 ){  WRONG MACRO. See tick_core.h
+            frequency = (20000000 / (64/4))/timePeriod; USE MACROS FOR GEARBOX RATIO, TIMER2 FREQ AND PPR
             RPM = (frequency * 60);
             stamp = TickGet();
         
@@ -83,7 +83,7 @@ int main( void){
             }
     else{
     
-        delay_us(500000);
+        delay_us(500000); REMOVE ALL BLOCKING DELAY
         LATAbits.LATA0 ^= 1;       //Led3
         frequency = 20000000/timePeriod; // 1/(timePeriod* 10 uS)}
         sprintf(buf, "CPR: %d      \n   ", RPM);
