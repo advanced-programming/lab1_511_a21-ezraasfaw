@@ -48,6 +48,7 @@ extern int timePeriod;
 extern int of;
 int stamp;
 int RPM;
+int RPM_GEARBOX;
 
 
 
@@ -67,27 +68,29 @@ int main( void){
     
     while(1){
        
-        if (TickDiff(stamp) > Ticks_per_second/2 ){  WRONG MACRO. See tick_core.h
-            frequency = (20000000 / (64/4))/timePeriod; USE MACROS FOR GEARBOX RATIO, TIMER2 FREQ AND PPR
+        if (TickDiff(stamp) > Ticks_per_second/2 ){  //WRONG MACRO. See tick_core.h
+            frequency = (20000000 / (64/4))/timePeriod; //USE MACROS FOR GEARBOX RATIO, TIMER2 FREQ AND PPR
             RPM = (frequency * 60);
             stamp = TickGet();
-        
+            RPM_GEARBOX = RPM/19;
         
     if (of >= 1000){
-                LATGbits.LATG8 =0;  //enables the motor at full speed
+
                 LATAbits.LATA0 = 0;       //Led3
                 delay_us(500000);
                 frequency = 0;    
-                sprintf(buf, "CPR: %d   \n   ", RPM);
+                sprintf(buf, "RPM: %d    \nGearbox RPM: %d    ", 0, 0);
                 fprintf2(C_LCD, buf);
             }
     else{
     
-        delay_us(500000); REMOVE ALL BLOCKING DELAY
+        delay_us(500000); //REMOVE ALL BLOCKING DELAY
         LATAbits.LATA0 ^= 1;       //Led3
         frequency = 20000000/timePeriod; // 1/(timePeriod* 10 uS)}
-        sprintf(buf, "CPR: %d      \n   ", RPM);
+        
+        sprintf(buf, "RPM: %d    \nGearbox RPM: %d    ", RPM, RPM_GEARBOX);
         //fprintf2(C_UART1, buf);
+        
         fprintf2(C_LCD, buf);
             }
         }
