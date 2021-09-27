@@ -18,7 +18,7 @@
 /*Global variables*/
 signed int of = 0;
 extern int timePeriod= 1;
-                    
+PROLOG HEADEWR NEEDED
 void __ISR( _TIMER_2_VECTOR, IPL1SOFT) T2InterruptHandler( void){ 
      IFS0bits.T2IF = 0; 
      of++; // Timer overflows
@@ -29,6 +29,7 @@ void __ISR( _TIMER_2_VECTOR, IPL1SOFT) T2InterruptHandler( void){
 //     IFS1bits.CNIF = 0;//Clear the CN flag?
 
 // Do something?
+EXPLAIN HERE
 /*Interrupt Service Routine for Change Notification */
      void __ISR( _CHANGE_NOTICE_VECTOR, IPL2SOFT) CNInterrupt(void){
          static signed  start,final;
