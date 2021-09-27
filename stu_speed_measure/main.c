@@ -15,7 +15,7 @@
  * Ezra-Fikru Asfaw       7 Sep. 2021   1- Made the LED to blink, but stop after 3 second when the function generator is disconnected.
  *                                      2- Made the display show the CPR value of the motor
 *******************************************************************************/
-
+YOU DON'T USE MACROS: GEARBOX, ENCODER ...
 #include <stdio.h>
 #include "initBoard.h"
 #include "console32.h"
@@ -48,7 +48,7 @@ extern int timePeriod;
 extern int of;
 int stamp;
 int RPM;
-int RPM_GEARBOX;
+int RPM_GEARBOX;  NO CAPITAL FOR VARIABLES
 
 
 
@@ -64,6 +64,7 @@ int main( void){
         //initT3_100Hz();
         //fprintf2(C_UART1,"Hello\n");
     
+    MACROS
    LATGbits.LATG8 =1;  //enables the motor at full speed  
     
     while(1){
@@ -77,7 +78,7 @@ int main( void){
     if (of >= 1000){
 
                 LATAbits.LATA0 = 0;       //Led3
-                delay_us(500000);
+                delay_us(500000); USELESS
                 frequency = 0;    
                 sprintf(buf, "RPM: %d    \nGearbox RPM: %d    ", 0, 0);
                 fprintf2(C_LCD, buf);
